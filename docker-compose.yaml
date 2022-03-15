@@ -1,0 +1,44 @@
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+
+networks:
+  frontend:
+    external: ${DOCKER_PROXY_EXT-true}
+    name: ${DOCKER_PROXY_NETWORK}
+  backend:
+
+services:
+  db:
+    image: postgres:${POSTGRES_TAG}
+    restart: unless-stopped
+    volumes:
+      - ${VOLUME_PATH}/var/lib/postgresql/data:/var/lib/postgresql/data:rw
+    secrets:
+      - postgres_password
+    networks:
+      - backend
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_USER: wikijs
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+
+  wiki:
+    image: ghcr.io/requarks/wiki:${WIKI_TAG}
+    secrets:
+      - postgres_password
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS_FILE: /run/secrets/postgres_password
+      DB_NAME: wiki
+    networks:
+      - backend
+      - frontend
+    restart: unless-stopped
+    # ports: # Uncomment to expore port on host
+    #   - "80:3000"
+    depends_on:
+      - db
