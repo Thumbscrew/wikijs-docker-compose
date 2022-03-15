@@ -1,6 +1,13 @@
 # Wiki.js (Docker Compose)
 
-Docker Compose file for Wiki.js with PostgreSQL backend 
+Docker Compose file for Wiki.js with PostgreSQL backend
+
+## Docker Images Used
+
+|image|link|
+|-----|----|
+|requarks/wiki|https://hub.docker.com/r/requarks/wiki|
+|postgres|https://hub.docker.com/_/postgres|
 
 ## Prerequisites
 
