@@ -6,7 +6,7 @@ Docker Compose file for Wiki.js with PostgreSQL backend
 
 1. [Docker](https://docs.docker.com/engine/install/)
 2. [Docker Compose](https://docs.docker.com/compose/install/)
-3. A reverse proxy on its own Docker network
+3. A reverse proxy on its own Docker network (optional)
 
 ### <a id="ReverseProxy">Reverse Proxy Docker Network</a>
 
